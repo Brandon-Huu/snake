@@ -1,15 +1,14 @@
-use bevy::prelude::*;
 use crate::entities::Player;
 use crate::systems::{handle_input, move_player};
+use bevy::prelude::*;
 
-mod entities;
 mod components;
+mod entities;
 mod systems;
 
 const BOARD_SIZE: usize = 40;
 const PIXEL_SIZE: usize = 20;
 //const SNAKE_INITIAL_SIZE: usize = 1;
-
 
 #[derive(PartialEq)]
 pub enum Direction {

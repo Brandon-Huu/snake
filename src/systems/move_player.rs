@@ -1,7 +1,6 @@
-use bevy::prelude::*;
 use crate::components::SnakeHead;
 use crate::{Direction, PIXEL_SIZE};
-
+use bevy::prelude::*;
 
 pub fn move_player(
     query_player: Query<&mut SnakeHead>,

@@ -1,10 +1,14 @@
-use bevy::prelude::*;
 use crate::Direction;
+use bevy::prelude::*;
 
 #[derive(Component)]
 pub struct SnakeHead {
-    pub direction: Direction
+    pub direction: Direction,
 }
 impl SnakeHead {
-    pub fn new() -> Self { SnakeHead { direction : Direction::Up } }
+    pub fn new() -> Self {
+        SnakeHead {
+            direction: Direction::Up,
+        }
+    }
 }
