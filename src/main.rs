@@ -1,5 +1,7 @@
-use crate::entities::Player;
-use crate::systems::{handle_input, move_player};
+use crate::entities::{Apple, Player};
+use crate::systems::{
+    apple_collision, despawn_segments, handle_input, move_player, spawn_segments,
+};
 use bevy::prelude::*;
 
 mod components;
@@ -10,7 +12,7 @@ const BOARD_SIZE: usize = 40;
 const PIXEL_SIZE: usize = 20;
 //const SNAKE_INITIAL_SIZE: usize = 1;
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Copy, Clone)]
 pub enum Direction {
     Up,
     Down,
@@ -29,6 +31,12 @@ impl From<Direction> for KeyCode {
     }
 }
 
+#[derive(Resource)]
+pub struct Score(u64);
+
+#[derive(Resource)]
+pub struct Skip(bool);
+
 fn main() {
     App::new()
         .add_plugins((DefaultPlugins.set(WindowPlugin {
@@ -46,13 +54,23 @@ fn main() {
         }),))
         .add_systems(Startup, setup)
         .add_systems(Update, handle_input)
-        .add_systems(FixedUpdate, move_player)
-        .insert_resource(Time::<Fixed>::from_seconds(0.25))
+        .add_systems(
+            FixedUpdate,
+            (
+                move_player,
+                apple_collision,
+                spawn_segments,
+                despawn_segments,
+            ),
+        )
+        .insert_resource(Time::<Fixed>::from_seconds(1.))
+        .insert_resource(Score(0))
+        .insert_resource(Skip(false))
         .run()
 }
 
 fn setup(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
     commands.spawn(Player::new());
-    // Spawn first apple
+    commands.spawn(Apple::new());
 }
