@@ -16,3 +16,4 @@ Cargo.lock
 # compilation
 
 .swp
+.swo
