@@ -10,10 +10,10 @@ pub fn move_player(
     let mut player_position = query_position.single_mut();
 
     match snake_head.direction_next {
-        Direction::Up => player_position.translation.y += PIXEL_SIZE as f32,
-        Direction::Down => player_position.translation.y -= PIXEL_SIZE as f32,
-        Direction::Left => player_position.translation.x -= PIXEL_SIZE as f32,
-        Direction::Right => player_position.translation.x += PIXEL_SIZE as f32,
+        Direction::Up => player_position.translation.y += PIXEL_SIZE,
+        Direction::Down => player_position.translation.y -= PIXEL_SIZE,
+        Direction::Left => player_position.translation.x -= PIXEL_SIZE,
+        Direction::Right => player_position.translation.x += PIXEL_SIZE,
     };
 
     snake_head.direction = snake_head.direction_next;

@@ -22,7 +22,7 @@ impl Player {
                     -BOARD_SIZE * PIXEL_SIZE / 2.,
                     0.,
                 )
-                .with_scale(Vec3::splat(PIXEL_SIZE as f32)),
+                .with_scale(Vec3::splat(PIXEL_SIZE)),
                 ..default()
             },
             b: SnakeHead::new(),

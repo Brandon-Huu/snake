@@ -22,7 +22,7 @@ impl Apple {
                     ..default()
                 },
                 transform: Transform::from_xyz(x_coordinate, y_coordinate, 0.)
-                    .with_scale(Vec3::splat(PIXEL_SIZE as f32)),
+                    .with_scale(Vec3::splat(PIXEL_SIZE)),
                 ..default()
             },
             b: AppleComponent {},

@@ -40,8 +40,8 @@ fn main() {
             primary_window: Some(Window {
                 title: "Snake by Brandon-Huu".into(),
                 resolution: (
-                    BOARD_SIZE as f32 * PIXEL_SIZE as f32,
-                    BOARD_SIZE as f32 * PIXEL_SIZE as f32 + 200.0,
+                    BOARD_SIZE * PIXEL_SIZE,
+                    BOARD_SIZE * PIXEL_SIZE + 200.0,
                 )
                     .into(),
                 resizable: false,
