@@ -6,8 +6,8 @@ pub fn move_player(
     mut query_player: Query<&mut SnakeHead>,
     mut query_position: Query<&mut Transform, With<SnakeHead>>,
 ) {
-    let mut snake_head = query_player.iter_mut().next().unwrap();
-    let mut player_position = query_position.iter_mut().next().unwrap();
+    let mut snake_head = query_player.single_mut();
+    let mut player_position = query_position.single_mut();
 
     match snake_head.direction_next {
         Direction::Up => player_position.translation.y += PIXEL_SIZE as f32,

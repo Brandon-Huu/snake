@@ -9,7 +9,7 @@ pub fn spawn_segments(
     mut commands: Commands,
     query_position: Query<&Transform, With<SnakeHead>>,
 ) {
-    let player_position = query_position.iter().next().unwrap();
+    let player_position = query_position.single();
 
     let snake = SnakeSegment::from(
         player_position.translation.x,

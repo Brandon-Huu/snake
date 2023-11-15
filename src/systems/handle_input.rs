@@ -3,10 +3,7 @@ use crate::Direction;
 use bevy::prelude::*;
 
 pub fn handle_input(keys: Res<Input<KeyCode>>, mut query_player: Query<&mut SnakeHead>) {
-    let mut snake_head = query_player
-        .iter_mut()
-        .next()
-        .expect("Could not find SnakeHead component");
+    let mut snake_head = query_player.single_mut();
 
     if keys.pressed(Direction::Up.into()) && snake_head.direction != Direction::Down {
         snake_head.direction_next = Direction::Up;

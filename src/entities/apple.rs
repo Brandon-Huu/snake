@@ -1,6 +1,7 @@
 use crate::components::AppleComponent;
-use crate::PIXEL_SIZE;
+use crate::{BOARD_SIZE, PIXEL_SIZE};
 use bevy::prelude::*;
+use rand::prelude::*;
 
 #[derive(Bundle)]
 pub struct Apple {
@@ -10,13 +11,17 @@ pub struct Apple {
 
 impl Apple {
     pub fn new() -> Self {
+
+        let x_coordinate = rand::thread_rng().gen_range(0.0..PIXEL_SIZE) as f32 * BOARD_SIZE;
+        let y_coordinate = rand::thread_rng().gen_range((-PIXEL_SIZE +1.)..=0.) as f32 * BOARD_SIZE;
+
         Apple {
             a: SpriteBundle {
                 sprite: Sprite {
                     color: Color::RED,
                     ..default()
                 },
-                transform: Transform::from_xyz(40., 40., 0.)
+                transform: Transform::from_xyz(x_coordinate, y_coordinate, 0.)
                     .with_scale(Vec3::splat(PIXEL_SIZE as f32)),
                 ..default()
             },

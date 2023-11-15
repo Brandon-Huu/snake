@@ -8,8 +8,8 @@ mod components;
 mod entities;
 mod systems;
 
-const BOARD_SIZE: usize = 40;
-const PIXEL_SIZE: usize = 20;
+const BOARD_SIZE: f32 = 40.;
+const PIXEL_SIZE: f32 = 20.;
 //const SNAKE_INITIAL_SIZE: usize = 1;
 
 #[derive(PartialEq, Copy, Clone)]
@@ -33,9 +33,6 @@ impl From<Direction> for KeyCode {
 
 #[derive(Resource)]
 pub struct Score(u64);
-
-#[derive(Resource)]
-pub struct Skip(bool);
 
 fn main() {
     App::new()
@@ -61,16 +58,26 @@ fn main() {
                 apple_collision,
                 spawn_segments,
                 despawn_segments,
-            ),
+            ).chain(),
         )
         .insert_resource(Time::<Fixed>::from_seconds(1.))
         .insert_resource(Score(0))
-        .insert_resource(Skip(false))
         .run()
 }
 
 fn setup(mut commands: Commands) {
-    commands.spawn(Camera2dBundle::default());
+    commands.spawn(Camera2dBundle {
+        transform: Transform::from_xyz(BOARD_SIZE * (PIXEL_SIZE -0.5)/2.,-BOARD_SIZE * (PIXEL_SIZE +0.5)/2. + 100.,0.),
+        ..default()
+    });
     commands.spawn(Player::new());
     commands.spawn(Apple::new());
+    commands.spawn(/* Border */ SpriteBundle {
+        sprite: Sprite {
+            anchor: bevy::sprite::Anchor::BottomLeft,
+            ..default()
+        },
+        transform: Transform::from_xyz(-PIXEL_SIZE/2.,-BOARD_SIZE*(PIXEL_SIZE-0.25),-100.).with_scale(Vec3::splat(BOARD_SIZE*PIXEL_SIZE)),
+        ..default()
+        });
 }
