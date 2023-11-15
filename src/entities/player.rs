@@ -17,8 +17,12 @@ impl Player {
                     color: Color::MIDNIGHT_BLUE,
                     ..default()
                 },
-                transform: Transform::from_xyz((PIXEL_SIZE/2.)* BOARD_SIZE,-BOARD_SIZE * PIXEL_SIZE/2., 0.)
-                    .with_scale(Vec3::splat(PIXEL_SIZE as f32)),
+                transform: Transform::from_xyz(
+                    (PIXEL_SIZE / 2.) * BOARD_SIZE,
+                    -BOARD_SIZE * PIXEL_SIZE / 2.,
+                    0.,
+                )
+                .with_scale(Vec3::splat(PIXEL_SIZE as f32)),
                 ..default()
             },
             b: SnakeHead::new(),

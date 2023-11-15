@@ -58,7 +58,8 @@ fn main() {
                 apple_collision,
                 spawn_segments,
                 despawn_segments,
-            ).chain(),
+            )
+                .chain(),
         )
         .insert_resource(Time::<Fixed>::from_seconds(1.))
         .insert_resource(Score(0))
@@ -67,7 +68,11 @@ fn main() {
 
 fn setup(mut commands: Commands) {
     commands.spawn(Camera2dBundle {
-        transform: Transform::from_xyz(BOARD_SIZE * (PIXEL_SIZE -0.5)/2.,-BOARD_SIZE * (PIXEL_SIZE +0.5)/2. + 100.,0.),
+        transform: Transform::from_xyz(
+            BOARD_SIZE * (PIXEL_SIZE - 0.5) / 2.,
+            -BOARD_SIZE * (PIXEL_SIZE + 0.5) / 2. + 100.,
+            0.,
+        ),
         ..default()
     });
     commands.spawn(Player::new());
@@ -77,7 +82,8 @@ fn setup(mut commands: Commands) {
             anchor: bevy::sprite::Anchor::BottomLeft,
             ..default()
         },
-        transform: Transform::from_xyz(-PIXEL_SIZE/2.,-BOARD_SIZE*(PIXEL_SIZE-0.25),-100.).with_scale(Vec3::splat(BOARD_SIZE*PIXEL_SIZE)),
+        transform: Transform::from_xyz(-PIXEL_SIZE / 2., -BOARD_SIZE * (PIXEL_SIZE - 0.25), -100.)
+            .with_scale(Vec3::splat(BOARD_SIZE * PIXEL_SIZE)),
         ..default()
-        });
+    });
 }
