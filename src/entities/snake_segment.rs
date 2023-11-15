@@ -24,7 +24,7 @@ impl SnakeSegment {
                     .with_scale(Vec3::splat(PIXEL_SIZE as f32)),
                 ..default()
             },
-            b: Segment { lifetime: lifetime },
+            b: Segment { lifetime },
         }
     }
 }
