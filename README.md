@@ -11,3 +11,5 @@ The snake game badly made in bevy.
 
 - Not becoming familar with events before starting the project
   - Some systems query or change values in systems that they aren't directly related to.
+
+- Game Development
