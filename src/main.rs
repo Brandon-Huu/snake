@@ -11,6 +11,7 @@ mod systems;
 
 const BOARD_SIZE: f32 = 40.;
 const PIXEL_SIZE: f32 = 20.;
+const TICKS_PER_SECOND: f64 = 8.;
 //const SNAKE_INITIAL_SIZE: usize = 1;
 
 #[derive(PartialEq, Copy, Clone)]
@@ -59,8 +60,8 @@ fn main() {
             )
                 .chain(),
         )
-        .insert_resource(Time::<Fixed>::from_seconds(1.))
-        .insert_resource(Score(0))
+        .insert_resource(Time::<Fixed>::from_seconds(1.0 / TICKS_PER_SECOND))
+        .insert_resource(Score(10))
         .add_event::<GameOverEvent>()
         .run()
 }

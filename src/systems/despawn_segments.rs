@@ -12,7 +12,7 @@ pub fn despawn_segments(
 ) {
     segments
         .into_iter()
-        .filter(|(entity, segment)| segment.lifetime <= time.elapsed().as_secs())
+        .filter(|(entity, segment)| segment.lifetime <= time.elapsed().as_millis())
         .for_each(|(entity, _)| commands.entity(entity).despawn());
 }
 
