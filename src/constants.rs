@@ -8,4 +8,4 @@ pub const MAIN_MENU_WIDTH: f32 = 200.0;
 pub const MAIN_MENU_HEIGHT: f32 = 300.0;
 
 pub const MAIN_MENU_RESOLUTION: (f32, f32) = (MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
-pub const MAIN_MENU_FONT_SIZE: f32 = 40.0;
+pub const MAIN_MENU_FONT_SIZE: f32 = 30.0;

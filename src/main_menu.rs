@@ -2,6 +2,7 @@ use crate::constants::*;
 use bevy::prelude::*;
 use bevy::render::camera::RenderTarget;
 use bevy::window::WindowRef;
+use bevy::sprite::Anchor;
 
 pub struct MainMenuPlugin;
 
@@ -56,14 +57,25 @@ fn spawn_main_menu(mut commands: Commands) {
     commands.spawn((camera, MainMenuCamera));
 
     //Title text
-    commands.spawn(TextBundle::from_section(
+    let title_text = Text::from_section(
         PROJECT_TITLE,
         TextStyle {
             font_size: MAIN_MENU_FONT_SIZE,
             ..default()
         },
-    ));
+    );
 
+    let text_transform = Transform::from_xyz(0.,MAIN_MENU_HEIGHT/2.,0.);
+
+    let text_ui = Text2dBundle {
+        text: title_text,
+        text_anchor: Anchor::TopCenter,
+        transform: text_transform,
+        ..default()
+    };
+    commands.spawn(text_ui.clone());
+
+    commands.spawn(text_ui);
     //Spawn controls
     commands.spawn(ButtonBundle::default());
 }
