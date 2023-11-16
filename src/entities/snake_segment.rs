@@ -20,8 +20,7 @@ impl SnakeSegment {
                     color: Color::LIME_GREEN,
                     ..default()
                 },
-                transform: Transform::from_xyz(x, y, -1.)
-                    .with_scale(Vec3::splat(PIXEL_SIZE)),
+                transform: Transform::from_xyz(x, y, -1.).with_scale(Vec3::splat(PIXEL_SIZE)),
                 ..default()
             },
             b: Segment { lifetime },

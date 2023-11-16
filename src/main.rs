@@ -1,6 +1,7 @@
 use crate::entities::{Apple, Player};
 use crate::systems::{
-    apple_collision, despawn_segments, handle_input, move_player, spawn_segments,
+    apple_collision, despawn_segments, game_over, handle_input, move_player, spawn_segments,
+    GameOverEvent
 };
 use bevy::prelude::*;
 
@@ -39,11 +40,7 @@ fn main() {
         .add_plugins((DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
                 title: "Snake by Brandon-Huu".into(),
-                resolution: (
-                    BOARD_SIZE * PIXEL_SIZE,
-                    BOARD_SIZE * PIXEL_SIZE + 200.0,
-                )
-                    .into(),
+                resolution: (BOARD_SIZE * PIXEL_SIZE, BOARD_SIZE * PIXEL_SIZE + 200.0).into(),
                 resizable: false,
                 ..default()
             }),
@@ -58,11 +55,13 @@ fn main() {
                 apple_collision,
                 spawn_segments,
                 despawn_segments,
+                game_over,
             )
                 .chain(),
         )
         .insert_resource(Time::<Fixed>::from_seconds(1.))
         .insert_resource(Score(0))
+        .add_event::<GameOverEvent>()
         .run()
 }
 
@@ -77,13 +76,48 @@ fn setup(mut commands: Commands) {
     });
     commands.spawn(Player::new());
     commands.spawn(Apple::new());
-    commands.spawn(/* Border */ SpriteBundle {
+    //Border
+    commands.spawn(/* Bottom Border */ SpriteBundle {
         sprite: Sprite {
             anchor: bevy::sprite::Anchor::BottomLeft,
             ..default()
         },
-        transform: Transform::from_xyz(-PIXEL_SIZE / 2., -BOARD_SIZE * (PIXEL_SIZE - 0.25), -100.)
-            .with_scale(Vec3::splat(BOARD_SIZE * PIXEL_SIZE)),
+        transform: Transform::from_xyz(-PIXEL_SIZE / 2., -BOARD_SIZE * (PIXEL_SIZE - 0.25), 100.)
+            .with_scale(Vec3::new(BOARD_SIZE * PIXEL_SIZE, PIXEL_SIZE / 4., 0.)),
+        ..default()
+    });
+
+    commands.spawn(/* Top Border */ SpriteBundle {
+        sprite: Sprite {
+            anchor: bevy::sprite::Anchor::TopLeft,
+            ..default()
+        },
+        transform: Transform::from_xyz(-PIXEL_SIZE / 2., PIXEL_SIZE / 2., 100.)
+            .with_scale(Vec3::new(BOARD_SIZE * PIXEL_SIZE, PIXEL_SIZE / 4., 0.)),
+        ..default()
+    });
+
+    commands.spawn(/* Left  Border */ SpriteBundle {
+        sprite: Sprite {
+            anchor: bevy::sprite::Anchor::BottomLeft,
+            ..default()
+        },
+        transform: Transform::from_xyz(-PIXEL_SIZE / 2., -BOARD_SIZE * (PIXEL_SIZE - 0.25), 100.)
+            .with_scale(Vec3::new(PIXEL_SIZE / 4., BOARD_SIZE * PIXEL_SIZE, 0.)),
+        ..default()
+    });
+
+    commands.spawn(/* Right  Border */ SpriteBundle {
+        sprite: Sprite {
+            anchor: bevy::sprite::Anchor::BottomRight,
+            ..default()
+        },
+        transform: Transform::from_xyz(
+            BOARD_SIZE * PIXEL_SIZE - PIXEL_SIZE / 2.,
+            -BOARD_SIZE * (PIXEL_SIZE - 0.25),
+            100.,
+        )
+        .with_scale(Vec3::new(PIXEL_SIZE / 4., BOARD_SIZE * PIXEL_SIZE, 0.)),
         ..default()
     });
 }
