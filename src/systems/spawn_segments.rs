@@ -1,6 +1,6 @@
 use crate::components::SnakeHead;
 use crate::entities::SnakeSegment;
-use crate::{TICKS_PER_SECOND, Score};
+use crate::{Score, TICKS_PER_SECOND};
 use bevy::prelude::*;
 
 pub fn spawn_segments(
@@ -14,7 +14,7 @@ pub fn spawn_segments(
     let snake = SnakeSegment::from(
         player_position.translation.x,
         player_position.translation.y,
-        time.elapsed().as_millis() + ( (score.0 + 1) as u128 * 1000/ TICKS_PER_SECOND as u128),
+        time.elapsed().as_millis() + ((score.0 + 1) as u128 * 1000 / TICKS_PER_SECOND as u128),
     );
     commands.spawn(snake);
 }

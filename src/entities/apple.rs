@@ -13,7 +13,7 @@ impl Apple {
     pub fn new() -> Self {
         let x_coordinate = rand::thread_rng().gen_range(0..PIXEL_SIZE as i32) as f32 * BOARD_SIZE;
         let y_coordinate =
-            rand::thread_rng().gen_range((-PIXEL_SIZE as i32+ 1)..=0) as f32 * BOARD_SIZE;
+            rand::thread_rng().gen_range((-PIXEL_SIZE as i32 + 1)..=0) as f32 * BOARD_SIZE;
 
         Apple {
             a: SpriteBundle {
