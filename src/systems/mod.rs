@@ -14,7 +14,7 @@ pub use game_over::game_over;
 
 pub use apple_collision::apple_collision;
 
-pub use despawn_segments::{despawn_segments, GameOverEvent};
+pub use despawn_segments::{despawn_all, despawn_segments, GameOverEvent};
 pub use handle_input::handle_input;
 pub use move_player::move_player;
 pub use spawn_segments::spawn_segments;
