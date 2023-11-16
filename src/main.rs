@@ -1,8 +1,8 @@
 use crate::entities::{Apple, Player};
 use crate::systems::{
-    add_points, apple_collision, despawn_segments, game_over, handle_input, move_player,
-    reset_score, spawn_segments, update_score_text, AddPointEvent, GameOverEvent, ResetScoreEvent,
-    ScoreChangeEvent,
+    add_points, apple_collision, despawn_all, despawn_segments, game_over, handle_input,
+    move_player, reset_score, spawn_segments, update_score_text, AddPointEvent, GameOverEvent,
+    ResetScoreEvent, ScoreChangeEvent,
 };
 use bevy::prelude::*;
 
@@ -51,7 +51,13 @@ fn main() {
         .add_systems(Startup, (setup, spawn_ui))
         .add_systems(
             Update,
-            (handle_input, add_points, reset_score, update_score_text),
+            (
+                handle_input,
+                add_points,
+                reset_score,
+                update_score_text,
+                despawn_all,
+            ),
         )
         .add_systems(
             FixedUpdate,
