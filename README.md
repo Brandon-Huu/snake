@@ -2,6 +2,10 @@
 
 The snake game badly made in bevy.
 
+<h1 align="center">
+  <br>
+  🐍<img src="screenshot.png" alt="Markdownify" style="width:50%">🐍
+</h1>
 
 ## Mistakes ( that i will not fix )
 
@@ -14,3 +18,4 @@ The snake game badly made in bevy.
 
 - Game Development
 - Writing bad code
+- Not knowing what plugins are and how to use them
