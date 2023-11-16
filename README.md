@@ -13,3 +13,4 @@ The snake game badly made in bevy.
   - Some systems query or change values in systems that they aren't directly related to.
 
 - Game Development
+- Writing bad code
