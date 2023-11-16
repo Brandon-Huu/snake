@@ -1,23 +1,23 @@
 use crate::components::{AppleComponent, SnakeHead};
-use crate::entities::{Player, Apple};
-use crate::systems::GameOverEvent;
+use crate::entities::{Apple, Player};
+use crate::systems::{ResetScoreEvent, GameOverEvent};
 
-use crate::{Score, BOARD_SIZE, PIXEL_SIZE};
+use crate::{ BOARD_SIZE, PIXEL_SIZE};
 use bevy::prelude::*;
 
 pub fn game_over(
     mut commands: Commands,
     query_player: Query<(Entity, &Transform), With<SnakeHead>>,
-    mut score: ResMut<Score>,
     query_apple: Query<(Entity, &Transform), With<AppleComponent>>,
-    mut game_over_event: EventWriter<GameOverEvent>
+    mut game_over_event: EventWriter<GameOverEvent>,
+    mut event_reset_score: EventWriter<ResetScoreEvent>
 ) {
     let player = query_player.single();
     let player_position = player.1;
 
     if player_position.translation.x >= 0.
         && player_position.translation.x < BOARD_SIZE * PIXEL_SIZE
-    && player_position.translation.y > -(BOARD_SIZE * PIXEL_SIZE)
+        && player_position.translation.y > -(BOARD_SIZE * PIXEL_SIZE)
         && player_position.translation.y <= 0.
     {
         return;
@@ -31,6 +31,6 @@ pub fn game_over(
     commands.spawn(Apple::new());
     commands.spawn(Player::new());
 
-    score.0 = 0;
-    game_over_event.send(GameOverEvent{});
+    game_over_event.send(GameOverEvent {});
+    event_reset_score.send(ResetScoreEvent{});
 }

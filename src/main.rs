@@ -1,7 +1,8 @@
 use crate::entities::{Apple, Player};
 use crate::systems::{
-    apple_collision, despawn_segments, game_over, handle_input, move_player, spawn_segments,
-    GameOverEvent
+    add_points, apple_collision, despawn_segments, game_over, handle_input, move_player,
+    reset_score, spawn_segments, update_score_text, AddPointEvent, GameOverEvent, ResetScoreEvent,
+    ScoreChangeEvent,
 };
 use bevy::prelude::*;
 
@@ -47,8 +48,11 @@ fn main() {
             }),
             ..default()
         }),))
-        .add_systems(Startup, setup)
-        .add_systems(Update, handle_input)
+        .add_systems(Startup, (setup, spawn_ui))
+        .add_systems(
+            Update,
+            (handle_input, add_points, reset_score, update_score_text),
+        )
         .add_systems(
             FixedUpdate,
             (
@@ -61,8 +65,11 @@ fn main() {
                 .chain(),
         )
         .insert_resource(Time::<Fixed>::from_seconds(1.0 / TICKS_PER_SECOND))
-        .insert_resource(Score(10))
+        .insert_resource(Score(0))
         .add_event::<GameOverEvent>()
+        .add_event::<AddPointEvent>()
+        .add_event::<ResetScoreEvent>()
+        .add_event::<ScoreChangeEvent>()
         .run()
 }
 
@@ -121,4 +128,19 @@ fn setup(mut commands: Commands) {
         .with_scale(Vec3::new(PIXEL_SIZE / 4., BOARD_SIZE * PIXEL_SIZE, 0.)),
         ..default()
     });
+}
+#[derive(Component)]
+pub struct ScoreTextField {}
+
+fn spawn_ui(mut commands: Commands) {
+    commands.spawn((
+        TextBundle::from_section(
+            "Score: 0",
+            TextStyle {
+                font_size: 100.0,
+                ..default()
+            },
+        ),
+        ScoreTextField {},
+    ));
 }
