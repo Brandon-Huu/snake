@@ -3,7 +3,7 @@ use bevy::prelude::*;
 
 #[derive(Component)]
 pub struct Segment {
-    pub lifetime: u64,
+    pub lifetime: u128,
 }
 
 #[derive(Bundle)]
@@ -13,7 +13,7 @@ pub struct SnakeSegment {
 }
 
 impl SnakeSegment {
-    pub fn from(x: f32, y: f32, lifetime: u64) -> Self {
+    pub fn from(x: f32, y: f32, lifetime: u128) -> Self {
         SnakeSegment {
             a: SpriteBundle {
                 sprite: Sprite {
